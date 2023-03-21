@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class doctorController extends Controller
 {
     function doctorPage(){
-        $alldoctorInfo = doctors::all();
+        $alldoctorInfo = doctors::latest()->get();
         return view("doctorPage",[
             'alldoctorInfo' => $alldoctorInfo,
         ]);
@@ -26,5 +26,36 @@ class doctorController extends Controller
         ]);
 
         return back()->with('updateSuccess', "update success!!");
+    }
+
+
+    function doctorDelete($id){
+
+        doctors::find($id)->delete();
+        return back();
+
+    }  
+    
+    
+    function doctorEdit($id){
+
+       $allDoctorInfo =  doctors::where("id",$id)->get();
+
+        return view("doctorEditPage",[
+            'allDoctorInfo' => $allDoctorInfo
+        ]);
+
+        
+
+    }
+
+    function doctorUpdate(Request $req){
+        doctors::find($req->doctor_id)->update([
+            'name' => $req->name,
+            'phone' => $req->phone,
+            'fee' => $req->fees,
+        ]);
+
+        return back();
     }
 }

@@ -38,3 +38,6 @@ Route::post("/finalSubmission", [appointmentController::class, "finalSubmission"
 
 Route::get("/doctor", [doctorController::class, "doctorPage"])->name("doctorPage");
 Route::post("/doctorStatus", [doctorController::class, "doctorStatus"])->name("doctorStatus");
+Route::get("/doctorDelete/{id}", [doctorController::class, "doctorDelete"])->name("doctorDelete");
+Route::get("/doctorEdit/{id}", [doctorController::class, "doctorEdit"])->name("doctorEdit");
+Route::post("/doctorUpdate", [doctorController::class, "doctorUpdate"])->name("doctorUpdate");
