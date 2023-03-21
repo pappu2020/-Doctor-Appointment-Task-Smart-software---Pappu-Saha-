@@ -18,10 +18,10 @@ class appointmentController extends Controller
 {
     function appointmentPage()
     {
-        $allUserInitialAppInfo = userInitialAppoinmentModel::all();
+        $allUserInitialAppInfo = appointments::all();
         $alldoctorInfo = doctors::all();
         $alldepartmentInfo = departments::all();
-        $totalFees = userInitialAppoinmentModel::where("Fees", "!=", null)->sum("Fees");
+        $totalFees = appointments::where("Fees", "!=", null)->sum("Fees");
         return view("apppointmentPage", [
             'alldoctorInfo' => $alldoctorInfo,
             'alldepartmentInfo' => $alldepartmentInfo,
@@ -83,11 +83,11 @@ class appointmentController extends Controller
 
 
 
-        userInitialAppoinmentModel::insert([
+        $appointment= appointments::insertGetId([
+            'appointment_no' => rand(),
+            'appointment_date' => $req->appointDate,
 
-            'App_date' => $req->appointDate,
-
-            'Doctor' => $req->doctor,
+            'doctor_id' => $req->doctor,
             'Fees' => $req->doctorFess,
             'created_at' => Carbon::now(),
 
@@ -102,7 +102,7 @@ class appointmentController extends Controller
 
     function userInitialAppDelete($id)
     {
-        userInitialAppoinmentModel::find($id)->delete();
+        appointments::find($id)->delete();
 
         return back();
     }
@@ -113,13 +113,12 @@ class appointmentController extends Controller
     {
 
         if ($req->totalFee == 0 && ($req->totalFee < $req->paidAmount)) {
-            return back()->with("Failed", "Please, You did not booked any appoinment or You have to paid full amount");
+            return back()->with("Failed", "You did not booked any appoinment or You have to paid full amount");
         } else {
 
             $req->validate([
 
-                'hiddenAppDate' => "required",
-                'hiddenDoctorId' => "required",
+                
                 'patientName' => "required",
                 'patientNum' => "required",
                 'totalFee' => "required",
@@ -127,11 +126,11 @@ class appointmentController extends Controller
 
             ]);
 
-            appointments::insert([
+            appointments::where("total_fee",null)->update([
 
-                'appointment_no' => rand(),
-                'appointment_date' => $req->hiddenAppDate,
-                'doctor_id' => $req->hiddenDoctorId,
+               
+                
+               
                 'patient_name' => $req->patientName,
                 'patient_phone' => $req->patientNum,
                 'total_fee' => $req->totalFee,
@@ -139,6 +138,8 @@ class appointmentController extends Controller
                 'created_at' => Carbon::now(),
 
             ]);
+
+            // userInitialAppoinmentModel::find()->all()->delete();
 
             return back()->with("success", "You booked your doctor appointment successfully");
         }

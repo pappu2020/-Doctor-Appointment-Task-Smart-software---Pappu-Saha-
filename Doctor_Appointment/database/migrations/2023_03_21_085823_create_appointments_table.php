@@ -16,10 +16,10 @@ return new class extends Migration
             $table->integer("appointment_no");
             $table->date("appointment_date");
             $table->integer("doctor_id");
-            $table->string("patient_name");
-            $table->string("patient_phone");
-            $table->integer("total_fee");
-            $table->integer("paid_amount");
+            $table->string("patient_name")->nullable();
+            $table->string("patient_phone")->nullable();
+            $table->integer("total_fee")->nullable();
+            $table->integer("paid_amount")->nullable();
             $table->timestamps();
         });
     }

@@ -92,7 +92,7 @@
                         @foreach ($allUserInitialAppInfo as $key => $UserInitialAppInfo)
                             <tr>
                                 <th scope="row">{{ $key + 1 }}</th>
-                                <td>{{ $UserInitialAppInfo->App_date }}</td>
+                                <td>{{ $UserInitialAppInfo->appointment_date }}</td>
                                 <td>{{ $UserInitialAppInfo->rel_to_doctor->name }}</td>
                                 <td>{{ $UserInitialAppInfo->Fees }}</td>
                                 <td><a href="{{ route('userInitialAppDelete', $UserInitialAppInfo->id) }}"
@@ -108,7 +108,7 @@
 
             <div class="paymentInfo">
 
-                <form action="{{route("finalSubmission")}}" method="post">
+                <form action="{{ route('finalSubmission') }}" method="post">
                     @csrf
                     <div class="row">
                         <h6 class="fw-bold">Patient Information</h6>
@@ -117,19 +117,15 @@
                             <input type="text" class="form-control" placeholder="Patient Name" name="patientName">
                         </div>
 
-                        @error("patientName")
-
-                        <p class="mt-2 mb-2 text-danger">{{$message}}</p>
-                            
+                        @error('patientName')
+                            <p class="mt-2 mb-2 text-danger">{{ $message }}</p>
                         @enderror
                         <div class="col">
                             <label for="patientNum" class="form-label"></label>
                             <input type="text" class="form-control" placeholder="Patient Phone" name="patientNum">
                         </div>
-                        @error("patientNum")
-
-                        <p class="mt-2 mb-2 text-danger">{{$message}}</p>
-                            
+                        @error('patientNum')
+                            <p class="mt-2 mb-2 text-danger">{{ $message }}</p>
                         @enderror
                     </div>
 
@@ -138,40 +134,44 @@
                         <div class="col">
                             <label for="totalFee" class="form-label">Total Fee</label>
                             <input type="text" class="form-control" value="{{ $totalFees }}" name="totalFee">
-                            @error("totalFee")
-
-                        <p class="mt-2 mb-2 text-danger">{{$message}}</p>
-                            
-                        @enderror
+                            @error('totalFee')
+                                <p class="mt-2 mb-2 text-danger">{{ $message }}</p>
+                            @enderror
                         </div>
                         <div class="col">
                             <label for="paidAmount" class="form-label">Paid Amount</label>
 
                             <input type="text" class="form-control" name="paidAmount">
-                             @error("paidAmount")
-
-                        <p class="mt-2 mb-2 text-danger">{{$message}}</p>
-                            
-                        @enderror
+                            @error('paidAmount')
+                                <p class="mt-2 mb-2 text-danger">{{ $message }}</p>
+                            @enderror
                         </div>
                     </div>
 
-                    <input type="hidden" value="
-                    @if (isset($UserInitialAppInfo->App_date))
+                    {{-- <input type="hidden"
+                        value="
+                    @if (isset($UserInitialAppInfo->appointment_date)) {{ $UserInitialAppInfo->appointment_date }} @endif"
+                        name="hiddenAppDate">
 
-                    {{ $UserInitialAppInfo->App_date }}
-                        
-                    @endif" name="hiddenAppDate">
-                   
-                    <input type="hidden" value="
-                    @if (isset($UserInitialAppInfo->rel_to_doctor->id))
+                    <input type="text"
+                        value="
+                    @if (isset($UserInitialAppInfo->rel_to_doctor->id)) {{ $UserInitialAppInfo->rel_to_doctor->id }} @endif"
+                        name="hiddenDoctorId"> --}}
 
-                    {{ $UserInitialAppInfo->rel_to_doctor->id}}
-                        
-                    @endif" name="hiddenDoctorId">
-                   
 
                     <button type="submit" class="btn btn-primary btnSub mt-2" name="finalSubmit">Submit</button>
+
+                    @if (session("Failed"))
+
+                    <div class="alert alert-danger mt-2 mb-2">{{session("Failed")}}</div>
+                        
+                    @endif
+                    
+                    @if (session("success"))
+
+                    <div class="alert alert-success mt-2 mb-2">{{session("success")}}</div>
+                        
+                    @endif
             </div>
 
         </div>
