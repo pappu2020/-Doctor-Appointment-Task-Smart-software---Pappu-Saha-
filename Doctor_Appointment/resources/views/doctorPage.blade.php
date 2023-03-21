@@ -1,5 +1,11 @@
 @extends('layout.layout')
-
+<style>
+    .doctorList{
+        padding: 30px;
+        background-color: #ddd;
+        height: 700px;
+    }
+</style>
 
 @section('content')
     <div class="doctorList">

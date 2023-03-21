@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\appointmentController;
 use App\Http\Controllers\doctorController;
+use App\Http\Controllers\homeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,9 +20,18 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
+
+
+//Home Page
+
+Route::get("/", [homeController::class, "homePage"])->name("homePage");
+
+
+
+
 //Apointment Page
 
-Route::get("/",[appointmentController::class,"appointmentPage"])->name("appointmentPage");
+Route::get("/appointmentPage",[appointmentController::class,"appointmentPage"])->name("appointmentPage");
 Route::post("/appointmentPageDepartInfo",[appointmentController::class, "appointmentPageDepartInfo"]);
 Route::post("/doctor_satusInfo",[appointmentController::class, "doctor_satusInfo"]);
 Route::post("/doctor_PaysInfo",[appointmentController::class, "doctor_PaysInfo"]);

@@ -9,7 +9,15 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
+
+   <style>
+    .myNavbarMenu{
+        padding: 15px;
+    }
+   </style>
 </head>
+
+
 
 <body>
     <div class="container-fluid">
@@ -18,9 +26,9 @@
         <nav>
             <div class="myNavbar">
                 
-                    <div class="d-flex bd-highlight menu bg-dark text-light">
+                    <div class="d-flex bd-highlight menu bg-dark text-light myNavbarMenu">
                         <div class="p-2 flex-grow-1 bd-highlight ms-5 text-info">Doctor Appointment</div>
-                        <div class="p-2 bd-highlight"><a href="" class="text-decoration-none text-light">Home</a></div>
+                        <div class="p-2 bd-highlight"><a href="{{route("homePage")}}" class="text-decoration-none text-light">Home</a></div>
                         <div class="p-2 bd-highlight"><a href="{{route("doctorPage")}}" class="text-decoration-none text-light">Doctor</a></div>
                         <div class="p-2 bd-highlight"><a href="{{route("appointmentPage")}}" class="text-decoration-none text-light me-5">Appointment</a></div>
                     </div>
