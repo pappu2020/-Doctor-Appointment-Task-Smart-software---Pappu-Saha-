@@ -5,11 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class userInitialAppoinmentModel extends Model
+class finalAppointment extends Model
 {
-    use HasFactory;
+    protected $guarded = ["id"];
     function rel_to_doctor()
     {
-        return $this->belongsTo(doctors::class, "Doctor");
+        return $this->belongsTo(doctors::class, "doctor_id");
     }
+    use HasFactory;
 }

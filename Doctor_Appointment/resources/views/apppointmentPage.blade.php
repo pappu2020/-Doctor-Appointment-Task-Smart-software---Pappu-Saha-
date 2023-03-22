@@ -137,7 +137,7 @@
                         <h6 class="fw-bold">Payments</h6>
                         <div class="col">
                             <label for="totalFee" class="form-label">Total Fee</label>
-                            <input type="text" class="form-control" value="{{ $totalFees }}" name="totalFee">
+                            <input type="number" readonly class="form-control" value="{{ $totalFees }}" name="totalFee">
                             @error('totalFee')
                                 <p class="mt-2 mb-2 text-danger">{{ $message }}</p>
                             @enderror
@@ -145,7 +145,7 @@
                         <div class="col">
                             <label for="paidAmount" class="form-label">Paid Amount</label>
 
-                            <input type="text" class="form-control" name="paidAmount">
+                            <input type="number" class="form-control" name="paidAmount">
                             @error('paidAmount')
                                 <p class="mt-2 mb-2 text-danger">{{ $message }}</p>
                             @enderror
